@@ -10,3 +10,4 @@ reports/eda/*.npz
 runs/*.log
 weights/author_*.pt
 weights/random_*.pt
+.venv-clean/
