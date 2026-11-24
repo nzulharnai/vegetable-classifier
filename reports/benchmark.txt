@@ -1,0 +1,3 @@
+load model 85 ms, torch threads 4
+frames 200x200: n=200 total median 11.9 ms, p95 14.7 ms; network only median 9.2 ms
+photos 10-12 MP: n=185 total median 76.9 ms, p95 105.3 ms; network only median 10.9 ms

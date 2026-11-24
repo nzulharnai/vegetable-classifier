@@ -12,10 +12,9 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import torch
-from PIL import Image, ImageOps
 from torch.utils.data import DataLoader, Dataset
 
-from src.data import CLASSES
+from src.data import CLASSES, load_photo
 from src.model import build_model, get_transforms
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -43,9 +42,7 @@ class Photos(Dataset):
         return len(self.paths)
 
     def __getitem__(self, i):
-        with Image.open(self.data / self.paths[i]) as im:
-            im.draft("RGB", (448, 448))  # fast JPEG downscale of the 10 MP photos
-            im = ImageOps.exif_transpose(im).convert("RGB")
+        im = load_photo(self.data / self.paths[i])
         return self.t(im), CLASSES.index(self.labels[i])
 
 
