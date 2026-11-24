@@ -1,0 +1,47 @@
+group_0 1345 0.9368 0.9231 {'Capsicum': 0.926, 'Carrot': 0.973, 'Cucumber': 0.894, 'Potato': 0.825, 'Raddish': 1.0, 'Squash': 0.94}
+group_1 2534 0.9049 0.8699 {'Capsicum': 0.791, 'Carrot': 0.866, 'Cucumber': 0.688, 'Potato': 0.931, 'Raddish': 1.0, 'Squash': 1.0}
+group_both 3879 0.916 0.8978 {'Capsicum': 0.829, 'Carrot': 0.896, 'Cucumber': 0.808, 'Potato': 0.905, 'Raddish': 1.0, 'Squash': 0.979}
+random_both 3879 0.9992 0.9988 {'Capsicum': 0.998, 'Carrot': 1.0, 'Cucumber': 0.994, 'Potato': 1.0, 'Raddish': 1.0, 'Squash': 1.0}
+author_0 799 1.0 1.0 {'Capsicum': 1.0, 'Carrot': 1.0, 'Cucumber': 1.0, 'Potato': 1.0, 'Raddish': 1.0, 'Squash': 1.0}
+group_stills_only 185 0.8595 0.8331 {'Capsicum': 0.833, 'Carrot': 0.6, 'Cucumber': 0.733, 'Potato': 0.957, 'Raddish': 1.0, 'Squash': 0.903}
+group_frames_only 3694 0.9188 0.8993 {'Capsicum': 0.829, 'Carrot': 0.905, 'Cucumber': 0.812, 'Potato': 0.899, 'Raddish': 1.0, 'Squash': 0.981}
+{'wrong_n': 326, 'wrong_median': 0.759, 'wrong_above_0.9': 0.285, 'right_median': 0.997}
+                                  size   mean
+run     session                              
+group_0 Capsicum/20251117_134205   175  0.926
+        Carrot/20251113_210729      28  1.000
+        Carrot/20251113_210803     201  0.965
+        Carrot/20251113_210822      28  1.000
+        Cucumber/20251113_210310   180  0.894
+        Potato/20251113_205825     103  0.825
+        Raddish/20251210_230636    161  1.000
+        Squash/20251113_210502     279  0.986
+        Squash/20251117_134731     190  0.874
+group_1 Capsicum/20260101_132853   235  0.719
+        Capsicum/20260101_135131   205  0.873
+        Carrot/20260101_132606     404  0.975
+        Carrot/20260101_135016      58  1.000
+        Carrot/20260101_135022     186  0.586
+        Cucumber/20260101_132322   128  0.688
+        Potato/20260101_133344     319  0.931
+        Raddish/20251210_230730    125  1.000
+        Squash/20260101_133006     262  1.000
+        Squash/20260101_134905     612  1.000
+group_0
+pred      Capsicum  Carrot  Cucumber  Potato  Raddish  Squash
+label                                                        
+Capsicum       162       0        13       0        0       0
+Carrot           0     250         0       1        6       0
+Cucumber        18       1       161       0        0       0
+Potato           0       0         0      85       18       0
+Raddish          0       0         0       0      161       0
+Squash          27       0         0       0        1     441
+group_1
+pred      Capsicum  Carrot  Cucumber  Potato  Raddish  Squash
+label                                                        
+Capsicum       348       0         0       0        0      92
+Carrot           2     561        66      19        0       0
+Cucumber        39       0        88       0        0       1
+Potato           0       0         0     297       14       8
+Raddish          0       0         0       0      125       0
+Squash           0       0         0       0        0     874
