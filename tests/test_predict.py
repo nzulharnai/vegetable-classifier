@@ -84,3 +84,22 @@ def test_unknown_threshold_is_off_by_default_and_optional(tmp_path):
     assert rows(plain)[1][1] in CLASSES
     assert rows(strict)[1][1] == "unknown"
     assert rows(plain)[1][2] == rows(strict)[1][2]
+
+
+def test_output_folder_is_created(tmp_path):
+    (tmp_path / "in").mkdir()
+    out = tmp_path / "new" / "dir" / "p.csv"
+    r = run(tmp_path / "in", out)
+    assert r.returncode == 0, r.stderr
+    assert rows(out) == [["filename", "label", "confidence"]]
+
+
+def test_unwritable_output_is_a_clear_error(tmp_path):
+    (tmp_path / "in").mkdir()
+    r = run(tmp_path / "in", tmp_path)  # a folder instead of a file
+    assert r.returncode != 0 and "cannot write" in r.stderr and "Traceback" not in r.stderr
+
+
+def test_16_bit_gray_is_scaled_not_clipped(tmp_path):
+    Image.fromarray(np.full((4, 4), 32768, dtype=np.uint16)).save(tmp_path / "g.png")
+    assert abs(load_photo(tmp_path / "g.png").getpixel((0, 0))[0] - 128) <= 1

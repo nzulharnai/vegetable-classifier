@@ -56,8 +56,13 @@ def main() -> None:
     sys.stderr.reconfigure(encoding="utf-8", errors="replace")
     if not a.input.is_dir():
         sys.exit(f"error: input folder not found: {a.input}")
-    rows = predict_folder(a.input, a.unknown_threshold)
-    with open(a.output, "w", newline="", encoding="utf-8") as f:
+    try:  # before the long part, so a locked or wrong path fails at once
+        a.output.parent.mkdir(parents=True, exist_ok=True)
+        f = open(a.output, "w", newline="", encoding="utf-8")
+    except OSError as e:
+        sys.exit(f"error: cannot write {a.output}: {e.strerror}")
+    with f:
+        rows = predict_folder(a.input, a.unknown_threshold)
         w = csv.writer(f)
         w.writerow(["filename", "label", "confidence"])
         w.writerows((n, l, f"{c:.4f}") for n, l, c in rows)

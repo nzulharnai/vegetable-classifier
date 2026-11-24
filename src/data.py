@@ -2,6 +2,7 @@
 import re
 from datetime import datetime
 
+import numpy as np
 from PIL import Image, ImageOps
 
 CLASSES = ["Capsicum", "Carrot", "Cucumber", "Potato", "Raddish", "Squash"]
@@ -21,6 +22,8 @@ def load_photo(path) -> Image.Image:
     with Image.open(path) as im:
         im.draft("RGB", (448, 448))  # fast JPEG downscale of 10 MP photos
         im = ImageOps.exif_transpose(im)
+        if im.mode.startswith("I;16"):  # convert("RGB") would clip 16-bit gray to white
+            im = Image.fromarray((np.asarray(im) >> 8).astype("uint8"))
         if im.mode in ("RGBA", "LA", "PA") or "transparency" in im.info:
             im = im.convert("RGBA")
             white = Image.new("RGBA", im.size, "white")
