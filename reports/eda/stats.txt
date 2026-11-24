@@ -1,0 +1,90 @@
+errors 0 md5 dup 0
+width  height
+200    200       3694
+2084   4624       100
+3456   3456        77
+4624   2084         8
+exif {0: 3694, 6: 154, 8: 19, 1: 10, 3: 2}
+                          brightness  sharpness    n
+unit                                                
+Capsicum/20251117_134205       100.0      595.0  164
+Capsicum/20260101_132853       106.0      231.0  215
+Capsicum/20260101_135131       109.0       79.0  194
+Capsicum/still_20251113         78.0     1585.0    4
+Capsicum/still_20251117         92.0      489.0    7
+Capsicum/still_20260101        103.0      357.0   31
+Carrot/20251113_210729          92.0      197.0   27
+Carrot/20251113_210803         120.0      335.0  200
+Carrot/20251113_210822         132.0     1349.0   24
+Carrot/20260101_132606         112.0      509.0  385
+Carrot/20260101_135016          94.0      314.0   58
+Carrot/20260101_135022          93.0      265.0  186
+Carrot/still_20251113           84.0      556.0    6
+Carrot/still_20260101           88.0      475.0   19
+Cucumber/20251113_210310       101.0     1195.0  168
+Cucumber/20260101_132322        92.0      728.0  125
+Cucumber/still_20251113         73.0     1502.0    8
+Cucumber/still_20251117        109.0     1546.0    4
+Cucumber/still_20260101         95.0      536.0    3
+Potato/20251113_205825          99.0      553.0   98
+Potato/20260101_133344         118.0      185.0  278
+Potato/still_20251113           74.0      793.0    5
+Potato/still_20260101          103.0      496.0   41
+Raddish/20251210_230636        105.0      133.0  153
+Raddish/20251210_230730         82.0      166.0  107
+Raddish/still_20251210          89.0      723.0   26
+Squash/20251113_210502         114.0      385.0  272
+Squash/20251117_134731          97.0      106.0  183
+Squash/20260101_133006         111.0      235.0  250
+Squash/20260101_134905         110.0      225.0  607
+Squash/still_20251113           83.0     1004.0    7
+Squash/still_20251117           75.0      378.0    7
+Squash/still_20260101          102.0      444.0   17
+adjacent frames 3675 phash median 6.0 share<=8 0.648 cos median 0.984
+nearest in same unit: phash<=8 0.734  cos median 0.986 p95 0.995
+nearest in other unit same class: phash<=8 0.000  cos median 0.869 p95 0.936
+nearest in other class: phash<=8 0.000  cos median 0.781 p95 0.883
+                            a                         b  cos_mean  cos_max  phash_pairs
+525     Squash/still_20251113     Squash/still_20251117     0.825    0.924            0
+438    Potato/20251113_205825     Potato/still_20251113     0.817    0.909            0
+520    Squash/20260101_133006     Squash/still_20251117     0.805    0.913            0
+32   Capsicum/20260101_132853  Capsicum/20260101_135131     0.802    0.941            0
+518    Squash/20260101_133006    Squash/20260101_134905     0.796    0.956            0
+34   Capsicum/20260101_132853   Capsicum/still_20251117     0.793    0.879            0
+523    Squash/20260101_134905     Squash/still_20251117     0.791    0.918            0
+527     Squash/still_20251117     Squash/still_20260101     0.790    0.927            0
+35   Capsicum/20260101_132853   Capsicum/still_20260101     0.786    0.947            0
+510    Squash/20251113_210502     Squash/still_20251113     0.784    0.902            0
+521    Squash/20260101_133006     Squash/still_20260101     0.777    0.928            0
+519    Squash/20260101_133006     Squash/still_20251113     0.776    0.892            0
+511    Squash/20251113_210502     Squash/still_20251117     0.775    0.880            0
+122   Capsicum/still_20251117   Capsicum/still_20260101     0.774    0.877            0
+516    Squash/20251117_134731     Squash/still_20251117     0.766    0.875            0
+203    Carrot/20251113_210803    Carrot/20251113_210822     0.765    0.893            0
+526     Squash/still_20251113     Squash/still_20260101     0.764    0.877            0
+522    Squash/20260101_134905     Squash/still_20251113     0.763    0.899            0
+450    Potato/20260101_133344     Potato/still_20251113     0.760    0.896            0
+509    Squash/20251113_210502    Squash/20260101_134905     0.759    0.918            0
+451    Potato/20260101_133344     Potato/still_20260101     0.754    0.940            0
+484   Raddish/20251210_230636    Raddish/still_20251210     0.753    0.913            0
+462     Potato/still_20251113     Potato/still_20260101     0.750    0.880            0
+524    Squash/20260101_134905     Squash/still_20260101     0.750    0.923            0
+231    Carrot/20251113_210822     Carrot/still_20251113     0.747    0.873            0
+508    Squash/20251113_210502    Squash/20260101_133006     0.746    0.912            0
+65   Capsicum/20260101_135131   Capsicum/still_20260101     0.745    0.925            0
+0    Capsicum/20251117_134205  Capsicum/20260101_132853     0.742    0.893            0
+3    Capsicum/20251117_134205   Capsicum/still_20251117     0.736    0.908            0
+64   Capsicum/20260101_135131   Capsicum/still_20251117     0.736    0.883            0
+                            a                       b  cos_mean  cos_max  phash_pairs
+61   Capsicum/20260101_132853   Squash/still_20251117     0.778    0.881            0
+57   Capsicum/20260101_132853  Squash/20251117_134731     0.766    0.900            0
+58   Capsicum/20260101_132853  Squash/20260101_133006     0.762    0.917            0
+60   Capsicum/20260101_132853   Squash/still_20251113     0.760    0.873            0
+175   Capsicum/still_20260101   Squash/still_20251117     0.752    0.884            0
+56   Capsicum/20260101_132853  Squash/20251113_210502     0.748    0.888            0
+59   Capsicum/20260101_132853  Squash/20260101_134905     0.744    0.910            0
+87   Capsicum/20260101_135131  Squash/20251117_134731     0.738    0.873            0
+91   Capsicum/20260101_135131   Squash/still_20251117     0.733    0.852            0
+88   Capsicum/20260101_135131  Squash/20260101_133006     0.732    0.921            0
+1-NN acc, all images: 1.0
+1-NN acc, other units only: 0.911 {'Capsicum': 0.852, 'Carrot': 0.971, 'Cucumber': 0.883, 'Potato': 0.998, 'Raddish': 0.755, 'Squash': 0.908}
