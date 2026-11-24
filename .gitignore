@@ -1,0 +1,9 @@
+data/Dataset/
+data/*.zip
+.venv/
+__pycache__/
+.pytest_cache/
+.ipynb_checkpoints/
+.superpowers/
+.claude/
+reports/eda/*.npz
