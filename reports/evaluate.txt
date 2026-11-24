@@ -5,6 +5,7 @@ random_both 3879 0.9992 0.9988 {'Capsicum': 0.998, 'Carrot': 1.0, 'Cucumber': 0.
 author_0 799 1.0 1.0 {'Capsicum': 1.0, 'Carrot': 1.0, 'Cucumber': 1.0, 'Potato': 1.0, 'Raddish': 1.0, 'Squash': 1.0}
 group_stills_only 185 0.8595 0.8331 {'Capsicum': 0.833, 'Carrot': 0.6, 'Cucumber': 0.733, 'Potato': 0.957, 'Raddish': 1.0, 'Squash': 0.903}
 group_frames_only 3694 0.9188 0.8993 {'Capsicum': 0.829, 'Carrot': 0.905, 'Cucumber': 0.812, 'Potato': 0.899, 'Raddish': 1.0, 'Squash': 0.981}
+95% interval by session {'accuracy': [0.866, 0.955], 'macro_f1': [0.842, 0.938]}
 {'wrong_n': 326, 'wrong_median': 0.759, 'wrong_above_0.9': 0.285, 'right_median': 0.997}
                                   size   mean
 run     session                              

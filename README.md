@@ -21,7 +21,9 @@ pip install -r requirements.txt
 python predict.py --input путь/к/папке --output preds.csv
 ```
 
-Форматы: jpg, jpeg, png, webp, bmp. Нечитаемые файлы и вложенные папки пропускаются с предупреждением и в CSV не попадают. HEIC не поддерживается. `unknown` не реализован.
+Форматы: jpg, jpeg, png, webp, bmp. Нечитаемые файлы и вложенные папки пропускаются с предупреждением и в CSV не попадают. HEIC не поддерживается.
+
+Чужие овощи: `--unknown-threshold 0.79` пишет `unknown`, если уверенность ниже. По умолчанию выключено: порог пропускает 60–72% чужих овощей (раздел 4 отчёта).
 
 ## Обучение с нуля
 1. Скачать [датасет](https://www.kaggle.com/datasets/preethi866/vegetable-dataset) (Apache 2.0) как zip.
@@ -50,6 +52,20 @@ python -m src.train --split full
 ```
 python -m src.evaluate
 python -m src.benchmark
+```
+
+5. Порог `unknown` (12 обучений, около 2 часов 15 минут) для каждого фолда 0 и 1 и каждого из 6 классов, затем расчёт:
+
+```
+python -m src.train --split group --fold 0 --exclude Carrot
+python -m src.unknown
+```
+
+6. ONNX и сравнение скорости (нужны фото в `data/Dataset`):
+
+```
+pip install -r requirements-onnx.txt
+python -m src.export_onnx
 ```
 
 Seed 42 задан везде; на другом железе или GPU цифры могут немного отличаться. Предсказания наших запусков лежат в `runs/`, поэтому `src.evaluate` воспроизводит таблицы без переобучения; для Grad-CAM нужны фото из `data/Dataset`.

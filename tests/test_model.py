@@ -4,7 +4,7 @@ import torch
 from PIL import Image
 
 from src.model import build_model, get_transforms
-from src.train import select
+from src.train import drop_class, select
 
 
 def test_output_shape():
@@ -40,3 +40,9 @@ def test_select_author_keeps_overlap_on_purpose():
 def test_select_full_has_no_test():
     tr, te = select(_splits(), "full", 0)
     assert len(tr) == 6 and len(te) == 0
+
+
+def test_drop_class_removes_it_from_training_only():
+    tr, te = select(_splits().assign(label=["Carrot", "Squash"] * 3), "group", 1)
+    tr2, te2 = drop_class(tr, te, "Carrot")
+    assert "Carrot" not in set(tr2.label) and len(te2) == len(te)

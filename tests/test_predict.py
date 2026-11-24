@@ -11,8 +11,8 @@ from src.data import CLASSES, load_photo
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def run(inp, out, cwd=None):
-    return subprocess.run([sys.executable, str(ROOT / "predict.py"), "--input", str(inp), "--output", str(out)],
+def run(inp, out, *extra, cwd=None):
+    return subprocess.run([sys.executable, str(ROOT / "predict.py"), "--input", str(inp), "--output", str(out), *extra],
                           capture_output=True, text=True, encoding="utf-8", cwd=cwd or ROOT)
 
 
@@ -71,3 +71,16 @@ def test_exif_rotation_is_applied(tmp_path):
 def test_transparent_pixels_become_white(tmp_path):
     Image.new("RGBA", (4, 4), (0, 0, 0, 0)).save(tmp_path / "t.png")
     assert load_photo(tmp_path / "t.png").getpixel((0, 0)) == (255, 255, 255)
+
+
+def test_unknown_threshold_is_off_by_default_and_optional(tmp_path):
+    d = tmp_path / "in"
+    d.mkdir()
+    noise().save(d / "a.png")
+    plain, strict = tmp_path / "p.csv", tmp_path / "s.csv"
+    assert run(d, plain).returncode == 0
+    r = run(d, strict, "--unknown-threshold", "1.01")
+    assert r.returncode == 0, r.stderr
+    assert rows(plain)[1][1] in CLASSES
+    assert rows(strict)[1][1] == "unknown"
+    assert rows(plain)[1][2] == rows(strict)[1][2]

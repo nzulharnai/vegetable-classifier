@@ -34,6 +34,11 @@ def select(df: pd.DataFrame, split: str, fold: int):
     raise ValueError(split)
 
 
+def drop_class(tr: pd.DataFrame, te: pd.DataFrame, label: str):
+    """Leave one class out of training; in the test part it plays an unknown vegetable."""
+    return tr[tr.label != label], te
+
+
 class Photos(Dataset):
     def __init__(self, df, data, transform):
         self.paths, self.labels, self.data, self.t = list(df.path), list(df.label), Path(data), transform
@@ -66,6 +71,7 @@ def main():
     ap.add_argument("--split", required=True, choices=["group", "random", "author", "full"])
     ap.add_argument("--fold", type=int, default=0, choices=[0, 1])
     ap.add_argument("--data", default=str(ROOT / "data" / "Dataset"))
+    ap.add_argument("--exclude", choices=CLASSES, help="class left out of training (unknown experiment)")
     ap.add_argument("--limit", type=int, default=0, help="smoke test: photos per class")
     ap.add_argument("--epochs-head", type=int, default=3)
     ap.add_argument("--epochs-full", type=int, default=7)
@@ -79,12 +85,15 @@ def main():
 
     df = pd.read_csv(ROOT / "data" / "splits.csv")
     tr, te = select(df, a.split, a.fold)
+    if a.exclude:
+        tr, te = drop_class(tr, te, a.exclude)
     if a.limit:
         tr, te = tr.groupby("label").head(a.limit), te.groupby("label").head(a.limit)
     print(f"{a.split} fold {a.fold}: train {len(tr)}, test {len(te)}, device {dev}", flush=True)
 
     counts = tr.label.value_counts().reindex(CLASSES)
-    weight = torch.tensor((len(tr) / (len(CLASSES) * counts)).values, dtype=torch.float32, device=dev)
+    w = (len(tr) / (counts.notna().sum() * counts)).fillna(0.0)
+    weight = torch.tensor(w.values, dtype=torch.float32, device=dev)
     loss_fn = torch.nn.CrossEntropyLoss(weight=weight)
     loader = DataLoader(Photos(tr, a.data, get_transforms(True)), 64, shuffle=True, drop_last=len(tr) > 64,
                         num_workers=a.workers, generator=torch.Generator().manual_seed(SEED))
@@ -99,7 +108,7 @@ def main():
             print(phase, e + 1, f"loss {loss:.4f}", flush=True)
             sched.step()
 
-    out, name = Path(a.out), f"{a.split}_{a.fold}"
+    out, name = Path(a.out), f"{a.split}_{a.fold}" + (f"_no{a.exclude}" if a.exclude else "")
     (out / "runs").mkdir(parents=True, exist_ok=True)
     (out / "weights").mkdir(parents=True, exist_ok=True)
     torch.save(net.state_dict(), out / "weights" / ("model.pt" if a.split == "full" else f"{name}.pt"))

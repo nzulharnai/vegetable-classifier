@@ -1,0 +1,33 @@
+{
+ "chosen_on_fold_1_checked_on_fold_0": {
+  "threshold": 0.7993,
+  "known_kept": 0.887,
+  "unknown_rejected": 0.282,
+  "accuracy_of_accepted_known": 0.942,
+  "accuracy_of_all_known": 0.898,
+  "rejected_by_excluded_class": {
+   "Capsicum": 0.211,
+   "Carrot": 0.685,
+   "Cucumber": 0.439,
+   "Potato": 0.563,
+   "Raddish": 0.174,
+   "Squash": 0.002
+  }
+ },
+ "chosen_on_fold_0_checked_on_fold_1": {
+  "threshold": 0.7677,
+  "known_kept": 0.912,
+  "unknown_rejected": 0.404,
+  "accuracy_of_accepted_known": 0.964,
+  "accuracy_of_all_known": 0.931,
+  "rejected_by_excluded_class": {
+   "Capsicum": 0.007,
+   "Carrot": 0.48,
+   "Cucumber": 0.0,
+   "Potato": 0.834,
+   "Raddish": 0.736,
+   "Squash": 0.402
+  }
+ },
+ "threshold_both_folds": 0.7875
+}

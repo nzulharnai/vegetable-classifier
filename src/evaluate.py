@@ -33,6 +33,19 @@ def summarize(d: pd.DataFrame) -> dict:
     }
 
 
+def session_ci(d: pd.DataFrame, n: int = 2000, seed: int = 0) -> dict:
+    """95% interval from resampling whole sessions within each class (frames are dependent)."""
+    rng = np.random.default_rng(seed)
+    parts = {c: [g for _, g in d[d.label == c].groupby("session")] for c in CLASSES}
+    acc, f1 = [], []
+    for _ in range(n):
+        b = pd.concat([parts[c][k] for c in CLASSES for k in rng.integers(0, len(parts[c]), len(parts[c]))])
+        acc.append((b.label == b.pred).mean())
+        f1.append(f1_score(b.label, b.pred, labels=CLASSES, average="macro", zero_division=0))
+    return {"accuracy": np.quantile(acc, [.025, .975]).round(3).tolist(),
+            "macro_f1": np.quantile(f1, [.025, .975]).round(3).tolist()}
+
+
 def gradcam(net, x, cls):
     """Grad-CAM on the last convolutional layer, scaled to [0, 1]."""
     keep = {}
@@ -73,6 +86,7 @@ def main():
     g = pd.concat([frames["group_0"], frames["group_1"]], ignore_index=True)
     per_session = g.assign(ok=g.label == g.pred).groupby(["run", "session"]).ok.agg(["size", "mean"]).round(3)
     per_session.to_csv(OUT / "per_session.csv")
+    res["group_both"]["ci95_by_session"] = session_ci(g)
     g["still"] = ~g.path.str.contains("_frame_")
     res["group_stills_only"] = summarize(g[g.still])
     res["group_frames_only"] = summarize(g[~g.still])
@@ -121,6 +135,7 @@ def main():
     fig.savefig(OUT / "gradcam.png", dpi=70)
     for k in ("group_0", "group_1", "group_both", "random_both", "author_0", "group_stills_only", "group_frames_only"):
         print(k, res[k]["n"], res[k]["accuracy"], res[k]["macro_f1"], {c: v["recall"] for c, v in res[k]["per_class"].items()})
+    print("95% interval by session", res["group_both"]["ci95_by_session"])
     print(res["group_confidence"])
     print(per_session.to_string())
     for r in ("group_0", "group_1"):

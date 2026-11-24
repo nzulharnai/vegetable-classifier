@@ -27,7 +27,7 @@ def load_model() -> torch.nn.Module:
     return net.eval()
 
 
-def predict_folder(input_dir: Path) -> list[tuple[str, str, float]]:
+def predict_folder(input_dir: Path, unknown_threshold: float = 0.0) -> list[tuple[str, str, float]]:
     net, transform, result = load_model(), get_transforms(False), []
     for path in sorted(input_dir.iterdir()):
         if not path.is_file() or path.suffix.lower() not in EXTENSIONS:
@@ -41,7 +41,8 @@ def predict_folder(input_dir: Path) -> list[tuple[str, str, float]]:
         with torch.inference_mode():
             probs = net(x).softmax(1)[0]
         k = int(probs.argmax())
-        result.append((path.name, CLASSES[k], float(probs[k])))
+        conf = float(probs[k])
+        result.append((path.name, CLASSES[k] if conf >= unknown_threshold else "unknown", conf))
     return result
 
 
@@ -49,11 +50,13 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--input", required=True, type=Path)
     ap.add_argument("--output", required=True, type=Path)
+    ap.add_argument("--unknown-threshold", type=float, default=0.0,
+                    help="write `unknown` below this confidence; off by default, see REPORT.md (0.79)")
     a = ap.parse_args()
     sys.stderr.reconfigure(encoding="utf-8", errors="replace")
     if not a.input.is_dir():
         sys.exit(f"error: input folder not found: {a.input}")
-    rows = predict_folder(a.input)
+    rows = predict_folder(a.input, a.unknown_threshold)
     with open(a.output, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(["filename", "label", "confidence"])
