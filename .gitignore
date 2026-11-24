@@ -7,3 +7,6 @@ __pycache__/
 .superpowers/
 .claude/
 reports/eda/*.npz
+runs/*.log
+weights/author_*.pt
+weights/random_*.pt
